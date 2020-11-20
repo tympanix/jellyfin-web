@@ -365,15 +365,8 @@ define(['appSettings', 'userSettings', 'playbackManager', 'connectionManager', '
             message.subtitleBurnIn = appSettings.get('subtitleburnin') || '';
         }
 
-        return new Promise(function (resolve, reject) {
-            require(['chromecastHelper'], function (chromecastHelper) {
-                chromecastHelper.getServerAddress(apiClient).then(function (serverAddress) {
-                    message.serverAddress = serverAddress;
-                    player.sendMessageInternal(message).then(resolve, reject);
-                }, reject);
-            });
-        });
-    };
+        return player.sendMessageInternal(message);
+    }
 
     CastPlayer.prototype.sendMessageInternal = function (message) {
         message = JSON.stringify(message);
